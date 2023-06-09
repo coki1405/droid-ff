@@ -1,5 +1,5 @@
 import os
-USR_HOME_DIR = os.path.expanduser('~')
+USR_HOME_DIR = '..'
 
 #tools and symbols for the fuzzer
 ndkstack='/opt/Arsenal/android-ndk/ndk-stack'
@@ -13,9 +13,9 @@ path_to_generated_samples = USR_HOME_DIR+"/droid-ff/generated_samples_folder/"
 path_to_save_logcat= USR_HOME_DIR+"/droid-ff/logcat.txt"
 path_to_mutated_dex = USR_HOME_DIR+"/droid-ff/generated_samples_folder/"
 path_to_mutation_sample = USR_HOME_DIR+"/droid-ff/mutation_sample/"
-path_to_fuzzer_binaries = "/usr/share/droid-ff/bin/"
-path_to_dex_fixer = "/usr/share/droid-ff/bin/dexRepair"
-path_to_thridparty = "/usr/share/droid-ff/third_party/"
+path_to_fuzzer_binaries = USR_HOME_DIR+"/droid-ff/bin/"
+path_to_dex_fixer = USR_HOME_DIR+"/droid-ff/bin/dexRepair"
+path_to_thridparty = USR_HOME_DIR+"/droid-ff/third_party/"
 path_to_unique_crashes = USR_HOME_DIR+"/droid-ff/unique_crashes/"
 #android binary which needs to be fuzzed
-target_android_executable = "/system/xbin/dexdump"
+target_android_executable = "stagefright"

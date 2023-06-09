@@ -11,6 +11,6 @@ def fuzzer_options():
     if int(choice) == 1:
         biflipper.flipp()
     elif int(choice) == 2:
-    	radamsa_magic.start()
+        radamsa_magic.start()
     elif int(choice) ==3:
         peach.start()

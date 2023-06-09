@@ -40,7 +40,7 @@ def show_options():
             elif int(user_selection) ==4 :
                 parse_tombstone.start()
             elif int(user_selection)== 5 :
-		start_gdb.start()
+                start_gdb.start()
 
 
 

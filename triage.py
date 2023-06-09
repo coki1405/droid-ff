@@ -14,7 +14,7 @@ def start():
         #run the file
         adb_android.shell(fuzzerConfig.target_android_executable+' /data/local/tmp/' + onlyfiles[x])
         #collect the crash
-        result = adb_android.shell("ls -l /data/tombstones/ | grep tombstone_00")
+        result = adb_android.shell("ls -l /data/tombstones/ | ./data/local/tmp/busybox-x86 grep tombstone_00")
 
         if(len(result)<2):
             pass

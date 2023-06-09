@@ -21,11 +21,12 @@ def save_logs():
 def fix_my_dex():
     onlyfiles = [f for f in listdir(fuzzerConfig.path_to_mutated_dex) if isfile(join(fuzzerConfig.path_to_mutated_dex, f))]
     for x in range(len(onlyfiles)):
+        pass
         #os.system(path_to_dex_fixer+" -I "+onlyfiles[x])
-        p = sub.Popen([fuzzerConfig.path_to_dex_fixer, '-I', fuzzerConfig.path_to_mutated_dex+onlyfiles[x]], stdout=sub.PIPE, stderr=sub.PIPE)
-        output, errors = p.communicate()
-        print output
-        run_on_android_emulator()
+        #p = sub.Popen([fuzzerConfig.path_to_dex_fixer, '-I', fuzzerConfig.path_to_mutated_dex+onlyfiles[x]], stdout=sub.PIPE, stderr=sub.PIPE)
+        #output, errors = p.communicate()
+        #print output
+    run_on_android_emulator()
 
 def run_on_android_emulator():
     onlyfiles = [f for f in listdir(fuzzerConfig.path_to_mutated_dex) if isfile(join(fuzzerConfig.path_to_mutated_dex, f))]
@@ -36,7 +37,7 @@ def run_on_android_emulator():
 
         adb_android.push(fuzzerConfig.path_to_mutated_dex+onlyfiles[x], '/data/local/tmp/')
         adb_android.shell('log -p F -t CRASH_LOGGER SIGSEGV : '+onlyfiles[x])
-        adb_android.shell(fuzzerConfig.target_android_executable+' /data/local/tmp/'+onlyfiles[x])
+        adb_android.shell(fuzzerConfig.target_android_executable+' -a /data/local/tmp/'+onlyfiles[x])
         adb_android.shell("rm /data/local/tmp/"+onlyfiles[x])
     save_logs()
 

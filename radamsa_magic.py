@@ -14,7 +14,9 @@ def start():
     print "hi"
     # sample_path = raw_input("Provide path to a sample file :")
     # only for testing, uncomment in prod
-    sample_path = fuzzerConfig.path_to_mutation_sample+"sample.dex"
+    #sample_path = fuzzerConfig.path_to_mutation_sample+"sample.dex"
+    #sample_path = fuzzerConfig.path_to_mutation_sample + "Rick_Astley_-_Never_Gonna_Give_You_Up_[NaijaGreen.Com]_.mp3"
+    sample_path = fuzzerConfig.path_to_mutation_sample + "file_example_MP4_640_3MG.mp4"
     num_sample = raw_input("Provide the number of Samples to be Generated : ")
     # make threading dynamic , for now sticking to 4 threads
     # number_of_threads = raw_input("Number of Threads to be used :")

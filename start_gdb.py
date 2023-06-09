@@ -10,8 +10,8 @@ from os import listdir
 def find_files():
 	onlyfiles = [f for f in listdir(fuzzerConfig.path_to_unique_crashes) if isfile(join(fuzzerConfig.path_to_unique_crashes, f))]
 	for x in range(len(onlyfiles)):
-        	print "File being debugged: " + fuzzerConfig.path_to_unique_crashes+onlyfiles[x]
-		adb_android.push(fuzzerConfig.path_to_unique_crashes+onlyfiles[x],"/data/local/tmp/crash.dex")
+		print "File being debugged: " + fuzzerConfig.path_to_unique_crashes+onlyfiles[x]
+		adb_android.push(fuzzerConfig.path_to_unique_crashes+onlyfiles[x],"/data/local/tmp/"+onlyfiles[x])
 
 
 def copy_gdb_server_to_device():
@@ -29,7 +29,8 @@ def start():
 	find_files()
 	start_threads()
 
-def start_gdb_server_in_device():
+def start_gdb_server_in_device(file):
+	print file
         out = adb_android.shell("/data/local/tmp/gdbserver :5039 /system/xbin/dexdump /data/local/tmp/crash.dex")
         print out
 
