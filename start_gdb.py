@@ -30,20 +30,20 @@ def start():
 	start_threads()
 
 def start_gdb_server_in_device(file):
-	print file
-        out = adb_android.shell("/data/local/tmp/gdbserver :5039 /system/xbin/dexdump /data/local/tmp/crash.dex")
-        print out
+	out = adb_android.shell("/data/local/tmp/gdbserver :5039 " + fuzzerConfig.target_android_executable + " /data/local/tmp/"+file)
+	print out
 
 def start_gdb_in_pc():
 	out = os.system(fuzzerConfig.path_to_thridparty+"android_gdb/gdb")
 	print out
 
 def start_threads():
-	
+	onlyfiles = [f for f in listdir(fuzzerConfig.path_to_unique_crashes) if isfile(join(fuzzerConfig.path_to_unique_crashes, f))]
 	try:
-		thread.start_new_thread(start_gdb_server_in_device,())
-		time.sleep(2)
-		thread.start_new_thread(start_gdb_in_pc,())
+		for x in range(len(onlyfiles)):
+			thread.start_new_thread(start_gdb_server_in_device,(onlyfiles[x],))
+			time.sleep(2)
+			thread.start_new_thread(start_gdb_in_pc,())
 	except:
 		print "unable to start threads"
 	time.sleep(5)

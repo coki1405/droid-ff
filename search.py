@@ -15,19 +15,18 @@ def move_crashes_to_triage():
         print str(e)
 
 def process(filename):
-    offset_line_to_file = 2
+    offset_line_to_file = 3
     f = open(filename, "r")
     lines = f.readlines()
 
     #parse every line of the current log
     print "Total Number  of lines" +str(len(lines))
     for x in range(0, len(lines)):
-
             strings = ("SIGSEGV", "SIGSEGV", "SIGFPE","SIGILL")
             if any(s in lines[x] for s in strings):
-              if "F/libc" in lines[x]:
-                if "F/CRASH_LOGGER" in lines[x - offset_line_to_file]:
-                    new_crashes.append(lines[x - offset_line_to_file][32:].strip())
+              if ("F/libc" in lines[x]) or (("F/"+fuzzerConfig.target_android_executable) in lines[x]):
+                  if "F/CRASH_LOGGER" in lines[x - offset_line_to_file]:
+                      new_crashes.append(lines[x - offset_line_to_file][32:].strip())
 
     move_crashes_to_triage()
 

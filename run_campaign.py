@@ -30,6 +30,7 @@ def fix_my_dex():
 
 def run_on_android_emulator():
     onlyfiles = [f for f in listdir(fuzzerConfig.path_to_mutated_dex) if isfile(join(fuzzerConfig.path_to_mutated_dex, f))]
+    cnt = 0
     for x in range(len(onlyfiles)):
         print fuzzerConfig.path_to_mutated_dex+onlyfiles[x]
 
@@ -37,9 +38,13 @@ def run_on_android_emulator():
 
         adb_android.push(fuzzerConfig.path_to_mutated_dex+onlyfiles[x], '/data/local/tmp/')
         adb_android.shell('log -p F -t CRASH_LOGGER SIGSEGV : '+onlyfiles[x])
-        adb_android.shell(fuzzerConfig.target_android_executable+' -a /data/local/tmp/'+onlyfiles[x])
+        res = adb_android.shell(fuzzerConfig.target_android_executable+fuzzerConfig.target_android_executable_args+' /data/local/tmp/'+onlyfiles[x])
+        if 'Segmentation' in res[1]:
+            cnt += 1
         adb_android.shell("rm /data/local/tmp/"+onlyfiles[x])
     save_logs()
+
+    print "Total number of segmentation faults: " + str(cnt)
 
 
 #def re_mount():

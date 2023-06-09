@@ -19,3 +19,5 @@ path_to_thridparty = USR_HOME_DIR+"/droid-ff/third_party/"
 path_to_unique_crashes = USR_HOME_DIR+"/droid-ff/unique_crashes/"
 #android binary which needs to be fuzzed
 target_android_executable = "stagefright"
+target_android_executable_args = " -a "
+source_input_sample = "file_example_MP4_640_3MG.mp4"
